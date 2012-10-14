@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>HTML5 Canvas</title>
+	<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	html, body {
+		width: 100%;
+		height: 100%;
+		background: #D4E9EC;
+		overflow: hidden;
+
+		-webkit-box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.4);
+		   -moz-box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.4);
+				box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.4);
+	}
+	</style>
+	<script>
+	(function(doc, win) {
+		var canvas  = null,
+			clicks  = null,
+			can     = null,
+			pressed = false,
+			lastX   = 0,
+			lastY   = 0,
+			rings   = [],
+
+		Ring = function(x, y, r) {
+
+			this.reset = function() {
+				this.x      = x;
+				this.y      = y;
+				this.r      = r;
+				this.o      = 1;
+				this.s      = Math.random() + 1;
+				this.v 		= Math.random();
+				this.fill 	= '0,0,0,';
+				this.colour = '155,155,155,';
+			}
+
+			this.expand = function() {
+				if(this.r < 50) {
+					this.r += 2;
+					this.s += 0.1;
+					this.o -= 0.04;
+					this.draw();
+				} else {
+					this.del();
+				}
+			}
+
+			this.draw = function() {
+				can.beginPath();
+				can.arc(this.x, this.y, this.r, 0, Math.PI*2, true);
+				can.fillStyle   = 'rgba('+this.fill+this.o.toFixed(2)+')';
+				can.fill();
+				can.strokeStyle = 'rgba('+this.colour+this.o+')';
+				can.lineWidth   = this.s;
+				can.stroke();
+				can.closePath();
+			};
+
+			this.del = function() {
+				rings.splice(0,1);
+			};
+
+			this.reset();
+		},
+
+		mouseClicked = function(e) {
+			var ring = new Ring(e.clientX, e.clientY, 10);
+			ring.draw();
+			rings.push(ring);
+			clicks++;
+		},
+
+		animate = function() {
+			can.clearRect(0, 0, doc.width, doc.height);
+			for(var i=0; i<rings.length; i++) {
+				rings[i].expand();
+			}
+		},
+
+		windowResized = function() {
+			canvas.width = doc.width;
+			canvas.height = doc.height;
+		};
+
+		win.onload = function() {
+			canvas = doc.getElementsByTagName('canvas')[0];
+			canvas.width = doc.width;
+			canvas.height = doc.height;
+			can = canvas.getContext('2d');
+
+			win.addEventListener('click', mouseClicked);
+			win.addEventListener('resize', windowResized);
+
+			setInterval(animate, 10);
+
+		}
+	}(document, window));
+	</script>
+</head>
+
+<body>
+
+	<canvas id="board" width="100%" height="100%">
+		Please enable Javascript
+	</canvas>
+
+</body>
+
+</html>

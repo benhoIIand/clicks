@@ -1,0 +1,1 @@
+Small app for counting the amount of clicks in a certain time
