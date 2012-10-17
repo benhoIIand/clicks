@@ -17,7 +17,7 @@
 			this.y      = y;
 			this.r      = r;
 			this.o      = 1;
-			this.fill 	= '0,0,0,';
+			this.fill 	= genRandomColour(this.o);
 			this.colour = '155,155,155,';
 		}
 
@@ -46,6 +46,10 @@
 		this.reset();
 	},
 
+	genRandomColour = function(o) {
+		return Math.floor(Math.floor(Math.random()*256)) + ',' + Math.floor(Math.random()*256) + ',' + Math.floor(Math.random()*256) + ',';
+	};
+
 	mouseClicked = function(e) {
 		if(!active) {
 			timer = setInterval(animate, 10);
@@ -55,6 +59,8 @@
 		ring.draw();
 		rings.push(ring);
 		clicks++;
+		doc.querySelector('#text').style.fontSize = '2000%';
+		doc.querySelector('#text').innerHTML = clicks;
 	},
 
 	animate = function() {
@@ -62,18 +68,11 @@
 		for(var i=0; i<rings.length; i++) {
 			rings[i].expand();
 		}
-		if(milliseconds > 10000) {
+		if(milliseconds > 15000) {
 			win.removeEventListener('click', mouseClicked);
 
 			if(rings.length === 0) {
 				clearInterval(timer);
-				ctx.font = 'italic 50px Calibri';
-				var gradient = ctx.createLinearGradient(0,0,canvas.width,0);
-				gradient.addColorStop("0","magenta");
-				gradient.addColorStop("0.5","blue");
-				gradient.addColorStop("1.0","red");
-				ctx.fillStyle = gradient;
-				ctx.fillText("You clicked "+clicks+" times",canvas.width/2.4,canvas.height/2.2);
 			}
 		}
 		milliseconds += 10
@@ -92,13 +91,5 @@
 
 		win.addEventListener('click', mouseClicked);
 		win.addEventListener('resize', windowResized);
-
-		ctx.font = 'italic 50px Calibri';
-		var gradient = ctx.createLinearGradient(0,0,canvas.width,0);
-		gradient.addColorStop("0","magenta");
-		gradient.addColorStop("0.5","blue");
-		gradient.addColorStop("1.0","red");
-		ctx.fillStyle = gradient;
-		ctx.fillText("Click to begin",canvas.width/2.4,canvas.height/2.2);
 	}
 }(document, window));
