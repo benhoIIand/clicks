@@ -53,13 +53,13 @@
 	mouseClicked = function(e) {
 		if(!active) {
 			timer = setInterval(animate, 10);
+			doc.querySelector('#text').style.fontSize = '2000%';
 			active = true;
 		}
 		var ring = new Ring(e.clientX, e.clientY, 10);
 		ring.draw();
 		rings.push(ring);
 		clicks++;
-		doc.querySelector('#text').style.fontSize = '2000%';
 		doc.querySelector('#text').innerHTML = clicks;
 	},
 

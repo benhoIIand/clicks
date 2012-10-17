@@ -1,0 +1,44 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+html, body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+body {
+	background: #D4E9EC;
+
+	-webkit-box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.4);
+	   -moz-box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.4);
+			box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.4);
+}
+p {
+	position: absolute;
+	width: 100%;
+	top: 20%;
+	padding: 0 15%;
+    font-size: 400%;
+	margin-bottom: 30px;
+    color: #C7C7C7;
+	font-family: "Tahoma";
+    text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-shadow: -1px -1px 1px rgba(0,0,0,0.3);
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+canvas {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
