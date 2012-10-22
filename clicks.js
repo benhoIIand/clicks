@@ -10,6 +10,8 @@
 		lastY        = 0,
 		rings        = [],
 
+		textInput = '#text',
+
 	Ring = function(x, y, r) {
 
 		this.reset = function() {
@@ -48,19 +50,19 @@
 
 	genRandomColour = function(o) {
 		return Math.floor(Math.floor(Math.random()*256)) + ',' + Math.floor(Math.random()*256) + ',' + Math.floor(Math.random()*256) + ',';
-	};
+	},
 
 	mouseClicked = function(e) {
 		if(!active) {
 			timer = setInterval(animate, 10);
-			doc.querySelector('#text').style.fontSize = '2000%';
+			doc.querySelector(textInput).style.fontSize = '2000%';
 			active = true;
 		}
 		var ring = new Ring(e.clientX, e.clientY, 10);
 		ring.draw();
 		rings.push(ring);
 		clicks++;
-		doc.querySelector('#text').innerHTML = clicks;
+		doc.querySelector(textInput).innerHTML = clicks;
 	},
 
 	animate = function() {
